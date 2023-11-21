@@ -1,91 +1,100 @@
-import React, { useRef, useState } from "react";
-import "./main.css";
-import circle_icon from "./images/circle.png";
-import cross_icon from "./images/cross.png";
+import React, { useRef, useState } from "react"
+import "./main.css"
+import circle_icon from "./images/circle.png"
+import cross_icon from "./images/cross.png"
 
-let input = ["", "", "", "", "", "", "", "", ""];
+let input = ["", "", "", "", "", "", "", "", ""]
 
 function TicTacToe() {
   //creating functional states
-  let [count, setCount] = useState(0);
-  let [lock, setLock] = useState(false);
-  let titleRef = useRef(null); // Using ref assigned to title to change the text later for winner
+  let [count, setCount] = useState(0)
+  let [lock, setLock] = useState(false)
+  let titleRef = useRef(null) // Using ref assigned to title to change the text later for winner
   //Creating Ref for each box
-  let box1, box2, box3, box4, box5, box6, box7, box8, box9 = useRef(null);
-  let box_array = [box1, box2, box3, box4, box5, box6, box7, box8, box9];
+  // let box1, box2, box3, box4, box5, box6, box7, box8, box9 = useRef(null)
+
+  let box1 = useRef(null)
+  let box2 = useRef(null)
+  let box3 = useRef(null)
+  let box4 = useRef(null)
+  let box5 = useRef(null)
+  let box6 = useRef(null)
+  let box7 = useRef(null)
+  let box8 = useRef(null)
+  let box9 = useRef(null)
+  let box_array = [box1, box2, box3, box4, box5, box6, box7, box8, box9]
 
   //declaring the function for each box
   const toggle = (e, num) => {
     // event , index number from each box
     if (lock) {
-      return true;
+      return true
     }
 
     if (count % 2 === 0) {
       // to decide first player's action as count starts with 0
-      e.target.innerHTML = `<img src ='${cross_icon}'>`; //back ticks are used as standard ES7 procedures instead of multiple {}
-      input[num] = "x"; // reference character to used later for checking winner
-      setCount(++count); // because react is asynchronous by default
+      e.target.innerHTML = `<img src ='${cross_icon}'>` //back ticks are used as standard ES7 procedures instead of multiple {}
+      input[num] = "x" // reference character to used later for checking winner
+      setCount(++count) // because react is asynchronous by default
     } else {
       //to decide second player's action
-      e.target.innerHTML = `<img src ='${circle_icon}'>`;
-      input[num] = "o";
-      setCount(++count);
+      e.target.innerHTML = `<img src ='${circle_icon}'>`
+      input[num] = "o"
+      setCount(++count)
     }
-    checkWin(); //checking winner after every click/toggle
-  };
+    checkWin() //checking winner after every click/toggle
+  }
 
   //Checking winner function
   const checkWin = () => {
 
     if (input[0] === input[1] && input[1] === input[2] && input[2] !== "") {
-      won(input[2]);
+      won(input[2])
     }
     if (input[3] === input[4] && input[4] === input[5] && input[5] !== "") {
-      won(input[5]);
+      won(input[5])
     }
     if (input[6] === input[7] && input[7] === input[8] && input[8] !== "") {
-      won(input[8]);
+      won(input[8])
     }
     if (input[0] === input[3] && input[3] === input[6] && input[6] !== "") {
-      won(input[6]);
+      won(input[6])
     }
     if (input[1] === input[4] && input[4] === input[7] && input[7] !== "") {
-      won(input[7]);
+      won(input[7])
     }
     if (input[2] === input[5] && input[5] === input[8] && input[8] !== "") {
-      won(input[8]);
+      won(input[8])
     }
     if (input[0] === input[4] && input[4] === input[8] && input[8] !== "") {
-      won(input[8]);
+      won(input[8])
     }
     if (input[0] === input[1] && input[1] === input[2] && input[2] !== "") {
-      won(input[2]);
+      won(input[2])
     }
     if (input[2] === input[4] && input[4] === input[6] && input[6] !== "") {
-      won(input[6]);
+      won(input[6])
     }
-  };
+  }
 
   const won = (winner) => {
-    setLock(true);
+    setLock(true)
     if (winner === "x") {
-      titleRef.current.innerHTML = `Congratulations : <img src='${cross_icon}'> won`;
+      titleRef.current.innerHTML = `Congratulations : <img src='${cross_icon}'> won`
     }
     if (winner === "o") {
-      titleRef.current.innerHTML = `Congratulations : <img src='${circle_icon}'> won`;
+      titleRef.current.innerHTML = `Congratulations : <img src='${circle_icon}'> won`
     }
-  };
+  }
 
   //Reset button
   const reset = () => {
-    setLock(false);
-    input = ["", "", "", "", "", "", "", "", ""];
-    titleRef.current.innerHTML = `Tic Tac Toe Game in <span>React</span>`;
-    box_array.map((block) => {
-      return (block.current.innerHTML = "");
-    });
-  };
+    setLock(false)
+    input = ["", "", "", "", "", "", "", "", ""]
+    titleRef.current.innerHTML = `Tic Tac Toe Game in <span>React</span>`
+    box_array.map(block => {block.current.innerHTML = ""})
+
+  }
 
   return (
     <div className="container">
@@ -109,7 +118,7 @@ function TicTacToe() {
       </div>
         <button className="reset" onClick={reset}> Reset </button>
     </div>
-  );
+  )
 }
 
-export default TicTacToe;
+export default TicTacToe
